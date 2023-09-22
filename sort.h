@@ -1,6 +1,7 @@
 #ifndef SORTING_ALGORITHMS_SORT_H
 #define SORTING_ALGORITHMS_SORT_H
 
+#include <stdio.h>
 #include <stddef.h>
 
 /**
