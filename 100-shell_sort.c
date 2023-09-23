@@ -2,19 +2,34 @@
 #include <stdio.h>
 
 /**
- * calculate_gap - calculates the gap using knuth sequence
+ * calculate_gaps - calculates the comparison
+ * gaps using knuth sequence
  * @size: size of the array
+ * @gaps_count: a pointer to keep keep track of gaps count
  * Return: the starting gap
  */
-size_t calculate_gap(size_t size)
+size_t *calculate_gaps(size_t size, size_t *gaps_count)
 {
-	size_t gap = 1;
+	size_t *gaps = NULL, gap = 1, i, tmp;
+	*gaps_count = 0;
 
-	while (gap <= size / 3)
+	while (gap < size)
 	{
+		(*gaps_count)++;
+		gaps = (size_t *)realloc(gaps, sizeof(size_t) * (*gaps_count));
+		gaps[*gaps_count - 1] = gap;
 		gap = gap * 3 + 1;
 	}
-	return (gap);
+
+	/* Reverse the gap sequence */
+	for (i = 0; i < *gaps_count / 2; i++)
+	{
+		tmp = gaps[i];
+		gaps[i] = gaps[*gaps_count - i - 1];
+		gaps[*gaps_count - i - 1] = tmp;
+	}
+
+	return (gaps);
 }
 
 /**
@@ -25,11 +40,15 @@ size_t calculate_gap(size_t size)
  */
 void shell_sort(int *array, size_t size)
 {
-	size_t gap = calculate_gap(size), i, j;
+	size_t *gaps, gap, gaps_count, i, j, k;
 	int tmp;
 
-	while (gap > 0)
+	gaps = calculate_gaps(size, &gaps_count);
+
+	for (k = 0; k < gaps_count; k++)
 	{
+		gap = gaps[k];
+
 		for (i = gap; i < size; i++)
 		{
 			tmp = array[i];
@@ -44,10 +63,6 @@ void shell_sort(int *array, size_t size)
 
 			array[j] = tmp;
 		}
-
-		/* Calculate the next gap using Knuth sequence */
-		gap = (gap - 1) / 3;
-
 		/* Call print_array every time the interval is decreased */
 		print_array(array, size);
 	}
