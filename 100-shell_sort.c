@@ -1,4 +1,5 @@
 #include "sort.h"
+#include <stdio.h>
 
 /**
  * calculate_gap - calculates the gap using knuth sequence
@@ -44,10 +45,10 @@ void shell_sort(int *array, size_t size)
 			array[j] = tmp;
 		}
 
-		/* Call print_array every time the interval is decreased */
-		print_array(array, size);
-
 		/* Calculate the next gap using Knuth sequence */
 		gap = (gap - 1) / 3;
+
+		/* Call print_array every time the interval is decreased */
+		print_array(array, size);
 	}
 }
