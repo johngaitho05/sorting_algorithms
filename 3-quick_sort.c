@@ -1,5 +1,4 @@
 #include "sort.h"
-#include <stdio.h>
 
 /**
  * partition - helper function for sorting the array
@@ -18,7 +17,7 @@ void partition(int *array, int low, int high, size_t size)
 
 	for (j = low; j < high; j++)
 	{
-		if (array[j] < array[high])
+		if (array[j] <= array[high])
 		{
 			i += 1;
 			if (i < j)
@@ -50,7 +49,7 @@ void partition(int *array, int low, int high, size_t size)
  */
 void quick_sort(int *array, size_t size)
 {
-	if (!array || size == 1)
+	if (!array)
 		return;
 
 	partition(array, 0, size - 1, size);
