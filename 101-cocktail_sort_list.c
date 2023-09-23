@@ -5,33 +5,39 @@
  * perform forward pass of Cocktail Shaker Sort
  * @list: A pointer to the head of the doubly linked list.
  * @swapped: A pointer to the swapped flag.
+ * @end: the end point past which items are already sorted
  */
-void traverse_forward(listint_t **list, int *swapped)
+void traverse_forward(listint_t **list, int *swapped, listint_t **end)
 {
-	listint_t *current = *list;
+	listint_t *curr = *list;
 	listint_t *tmp;
 
-	while (current->next != NULL)
+	while (curr->next != *end)
 	{
-		if (current->n > current->next->n)
+		if (curr->n > curr->next->n)
 		{
-			if (current->prev != NULL)
-				current->prev->next = current->next;
+			if (curr->prev != NULL)
+				curr->prev->next = curr->next;
 			else
-				*list = current->next;
-			current->next->prev = current->prev;
-			tmp = current->next->next;
-			current->next->next = current;
-			current->prev = current->next;
-			current->next = tmp;
+				*list = curr->next;
+
+			curr->next->prev = curr->prev;
+			tmp = curr->next->next;
+			curr->next->next = curr;
+			curr->prev = curr->next;
+			curr->next = tmp;
+
 			if (tmp != NULL)
-				tmp->prev = current;
+				tmp->prev = curr;
+
 			*swapped = 1;
 			print_list(*list);
 		}
 		else
-			current = current->next;
+			curr = curr->next;
 	}
+
+	*end = curr; /* Update the end of the sorted part */
 }
 
 /**
@@ -39,42 +45,53 @@ void traverse_forward(listint_t **list, int *swapped)
  * perform backward pass of Cocktail Shaker Sort
  * @list: A pointer to the head of the doubly linked list.
  * @swapped: A pointer to the swapped flag.
+ * @start: the starting point before which items are already sorted
+ * @end: the end point past which items are already sorted
  */
-void traverse_backward(listint_t **list, int *swapped)
+void traverse_backward(listint_t **list, int *swapped,
+					   listint_t **start, listint_t **end)
 {
-	listint_t *current = *list, *tmp;
+	listint_t *curr = *end;
+	listint_t *tmp;
 
-	while (current->prev != NULL)
+	while (curr->prev != *start)
 	{
-		if (current->n < current->prev->n)
+		if (curr->n < curr->prev->n)
 		{
-			if (current->next != NULL)
-				current->next->prev = current->prev;
-			current->prev->next = current->next;
-			tmp = current->prev->prev;
-			current->prev->prev = current;
-			current->next = current->prev;
-			current->prev = tmp;
+			if (curr->next != NULL)
+				curr->next->prev = curr->prev;
+			curr->prev->next = curr->next;
+			tmp = curr->prev->prev;
+			curr->prev->prev = curr;
+			curr->next = curr->prev;
+			curr->prev = tmp;
+
 			if (tmp != NULL)
-				tmp->next = current;
-			if (current->prev == NULL)
-				*list = current;
+				tmp->next = curr;
+
+			if (curr->prev == NULL)
+				*list = curr;
+
 			*swapped = 1;
 			print_list(*list);
 		}
 		else
-			current = current->prev;
+			curr = curr->prev;
 	}
+
+	*start = curr; /* Update the start of the unsorted part */
 }
 
 /**
- * cocktail_sort_list - Sorts a doubly linked list using
- * the Cocktail Shaker (Bidirectional Bubble Sort) algorithm.
+ * cocktail_sort_list - Sorts a doubly linked list using the Cocktail Shaker
+ *                      (Bidirectional Bubble Sort) algorithm.
  * @list: A pointer to the head of the doubly linked list.
  */
 void cocktail_sort_list(listint_t **list)
 {
 	int swapped = 1;
+	listint_t *start = NULL;
+	listint_t *end = NULL;
 
 	if (list == NULL || *list == NULL)
 		return;
@@ -82,9 +99,10 @@ void cocktail_sort_list(listint_t **list)
 	while (swapped)
 	{
 		swapped = 0;
-		traverse_forward(list, &swapped);
+		traverse_forward(list, &swapped, &end);
 		if (!swapped)
 			break;
-		traverse_backward(list, &swapped);
+		traverse_backward(list, &swapped, &start, &end);
 	}
 }
+
