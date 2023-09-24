@@ -92,7 +92,13 @@ void _merge_sort(int *array, int *tmp, size_t left, size_t right)
  */
 void merge_sort(int *array, size_t size)
 {
-	int *tmp = (int *)malloc(size * sizeof(int));
+
+	int *tmp;
+
+	if (!array || size == 1)
+		return;
+
+	tmp = (int *)malloc(size * sizeof(int));
 
 	if (tmp == NULL)
 	{
