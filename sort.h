@@ -1,8 +1,9 @@
 #ifndef SORTING_ALGORITHMS_SORT_H
 #define SORTING_ALGORITHMS_SORT_H
 
-#include <stddef.h>
+#include <stdio.h>
 #include <stdlib.h>
+#include <stddef.h>
 #include "unistd.h"
 
 /**
@@ -30,5 +31,6 @@ void cocktail_sort_list(listint_t **list);
 void counting_sort(int *array, size_t size);
 void merge_sort(int *array, size_t size);
 void heap_sort(int *array, size_t size);
+void radix_sort(int *array, size_t size);
 
 #endif
