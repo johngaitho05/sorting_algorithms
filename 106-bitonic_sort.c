@@ -6,7 +6,7 @@
  * @array: The array to be sorted
  * @i: Index of the first element
  * @j: Index of the second element
- * @direction: Sorting directionection (1 for ascending, 0 for descending)
+ * @direction: Sorting direction (1 for ascending, 0 for descending)
  */
 void compare_swap(int *array, size_t i, size_t j, int direction)
 {
@@ -26,7 +26,7 @@ void compare_swap(int *array, size_t i, size_t j, int direction)
  * @array: The array to be sorted
  * @low: Starting index of the first subarray
  * @count: Number of elements to be merged
- * @direction: Sorting directionection (1 for ascending, 0 for descending)
+ * @direction: Sorting direction (1 for ascending, 0 for descending)
  */
 void bitonic_merge(int *array, size_t low, size_t count, int direction)
 {
@@ -51,7 +51,7 @@ void bitonic_merge(int *array, size_t low, size_t count, int direction)
  * @array: The array to be sorted
  * @low: Starting index of the subarray
  * @count: Number of elements in the subarray
- * @direction: Sorting directionection (1 for ascending, 0 for descending)
+ * @direction: Sorting direction (1 for ascending, 0 for descending)
  * @size: size of the @array
  */
 void _bitonic_sort(int *array, size_t low,
