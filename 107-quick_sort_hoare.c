@@ -34,20 +34,18 @@ int hoare_partition(int *array, int low, int high, size_t size)
 
 	while (1)
 	{
-		do
-		{
+		do {
 			i++;
 		} while (array[i] < pivot);
 
-		do
-		{
+		do {
 			j--;
 		} while (array[j] > pivot);
 
 		if (i > j)
-			return j;
+			return (j);
 
-        if (i != j)
+		if (i != j)
 			swap(array, i, j, size);
 	}
 }
@@ -72,7 +70,8 @@ void _quick_sort_hoare(int *array, int low, int high, size_t size)
 }
 
 /**
- * quick_sort_hoare - Sorts an array using Quick Sort with Hoare Partition scheme
+ * quick_sort_hoare - Sorts an array using
+ * Quick Sort with Hoare Partition scheme
  *
  * @array: The array to be sorted
  * @size: Number of elements in @array
