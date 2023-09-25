@@ -13,10 +13,10 @@ void compare_swap(int *array, size_t i, size_t j, int direction)
 	if ((array[i] > array[j]) == direction)
 	{
 		/* Swap the elements to maintain the desired order */
-		int temp = array[i];
+		int tmp = array[i];
 
 		array[i] = array[j];
-		array[j] = temp;
+		array[j] = tmp;
 	}
 }
 
