@@ -3,8 +3,9 @@
 #include "deck.h"
 
 /**
- * card_value - computes the value of a node
- * @node: a node from a deck of card of card dll
+ * card_value - computes the value of
+ * a node based on it's card
+ * @node: a node from a deck of cards dll
  * Return: integer representation of the node
  */
 int card_value(deck_node_t *node)
