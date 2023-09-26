@@ -29,6 +29,7 @@ int card_value(deck_node_t *node)
 
 /**
  * sort_deck - sorts a deck of card
+ * using insertion sort algorithm
  * @deck: a doubly linked list made of deck nodes
  */
 void sort_deck(deck_node_t **deck)
