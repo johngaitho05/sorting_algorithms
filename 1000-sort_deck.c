@@ -3,12 +3,12 @@
 #include "deck.h"
 
 /**
- * card_value - computes the value of
+ * node_value - computes the value of
  * a node based on it's card
- * @node: a node from a deck of cards dll
+ * @node: a node from a deck of cards
  * Return: integer representation of the node
  */
-int card_value(deck_node_t *node)
+int node_value(deck_node_t *node)
 {
 	const card_t *card = node->card;
 	int value = card->kind * 100;
@@ -45,7 +45,7 @@ void sort_deck(deck_node_t **deck)
 	{
 		tmp1 = current;
 		tmp2 = current->next;
-		while (tmp1->prev && card_value(tmp1) < card_value(tmp1->prev))
+		while (tmp1->prev && node_value(tmp1) < node_value(tmp1->prev))
 		{
 			prev = tmp1->prev;
 			next = tmp1->next;
